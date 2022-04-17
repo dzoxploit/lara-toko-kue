@@ -2,6 +2,7 @@
 namespace App\Http\Controllers;
 use App\Models\Produk;
 use Illuminate\Http\Request;
+use DB;
 
 class ProdukController extends Controller
 {
@@ -13,7 +14,7 @@ class ProdukController extends Controller
       public function index()
         {
             $produk = Produk::orderBy('id_kue','desc')->paginate(5);
-            return view('produk.index', $produk);
+            return view('produk.index', compact('produk'));
         }
         /**
         * Show the form for creating a new resource.
@@ -37,7 +38,7 @@ class ProdukController extends Controller
                 'detail_kue' => 'required',
                 'harga_kue' => 'required',
                 'status_kue' => 'required',
-                'gambar_kue' => 'required|mimes:pdf,xlx,csv|max:2048',
+                'gambar_kue' => 'required|mimes:jpg,png,jpeg,gif,svg|max:2048',
             ]);
 
             $path = $request->file('gambar_kue')->store('public/images');
@@ -61,7 +62,7 @@ class ProdukController extends Controller
         public function show($id)
         {
             $produk = Produk::where('id_kue',$id)->first();
-            return view('produk.show', $produk);
+            return view('produk.show', compact('produk'));
         } 
         /**
         * Show the form for editing the specified resource.
@@ -72,7 +73,7 @@ class ProdukController extends Controller
         public function edit($id)
         {
             $produk = Produk::where('id_kue',$id)->first();
-            return view('produk.show', $produk);
+            return view('produk.edit', ['produk' => $produk]);
         }
         /**
         * Update the specified resource in storage.
@@ -81,7 +82,7 @@ class ProdukController extends Controller
         * @param  \App\company  $company
         * @return \Illuminate\Http\Response
         */
-        public function update(Request $request, $id)
+        public function update_data(Request $request, $id)
         {
             $request->validate([
                 'nama_kue' => 'required',
@@ -89,23 +90,18 @@ class ProdukController extends Controller
                 'harga_kue' => 'required',
                 'status_kue' => 'required',
             ]);
-
-            $pelanggan = Produk::where('id_kue',$id)->first();
-
-             if($request->hasFile('gambar_kue')){
-                $request->validate([
-                'gambar_kue' => 'required|image|mimes:jpg,png,jpeg,gif,svg|max:2048',
-                ]);
-                $path = $request->file('gambar_kue')->store('public/images');
-                $produk->gambar_kue = $path;
-            }
+             if ($request->hasFile('gambar_kue')) {
+                $produk = Produk::where('id_kue',$id)->first();
+                $path = $request->gambar_kue->store('public/images');
                 $produk->nama_kue = $request->nama_kue;
                 $produk->detail_kue = $request->detail_kue;
                 $produk->status_kue = $request->status_kue;
                 $produk->harga_kue = $request->harga_kue;
+                $produk->gambar_kue = $path;
                 $produk->save();
-
-            return redirect()->route('produk.index')->with('success','Produk has been updated successfully.');
+            }
+            
+                return redirect()->route('produk.index')->with('success','Produk has been updated successfully.');
         }
         /**
         * Remove the specified resource from storage.
@@ -113,7 +109,7 @@ class ProdukController extends Controller
         * @param  \App\Company  $company
         * @return \Illuminate\Http\Response
         */
-        public function destroy($id)
+        public function delete_data($id)
         {
         $produk = Produk::where('id_kue',$id)->first();
         $produk->delete();

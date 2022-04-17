@@ -1,6 +1,10 @@
-@extends('products.layout')
+@extends('layouts.app')
    
 @section('content')
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
     <div class="row">
         <div class="col-lg-12 margin-tb">
             <div class="pull-left">
@@ -23,9 +27,8 @@
         </div>
     @endif
   
-    <form action="{{ route('produk.update',$produk->id_kue) }}" method="POST">
+    <form action="{{ route('produk.update_data',['id' => $produk->id_kue] ) }}" enctype="multipart/form-data" method="POST">
         @csrf
-        @method('PUT')
    
         <div class="row">
         <div class="col-xs-12 col-sm-12 col-md-12">
@@ -37,7 +40,7 @@
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
                 <strong>Detail Kue:</strong>
-                <textarea class="form-control" style="height:150px" name="detail_kue" value="{{ $produk->detail_kue }}"></textarea>
+                <textarea class="form-control" style="height:150px" name="detail_kue">{{ $produk->detail_kue }}</textarea>
             </div>
         </div>
           <div class="col-xs-12 col-sm-12 col-md-12">
@@ -66,4 +69,8 @@
         </div>
    
     </form>
+</div>
+</div>
+</div>
+</div>
 @endsection

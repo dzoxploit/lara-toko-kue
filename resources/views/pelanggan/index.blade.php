@@ -1,13 +1,17 @@
-@extends('pelanggan.layout')
+@extends('layouts.app')
  
 @section('content')
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
     <div class="row">
         <div class="col-lg-12 margin-tb">
             <div class="pull-left">
                 <h2>Toko Kue Dani Ardeanto</h2>
             </div>
             <div class="pull-right">
-                <a class="btn btn-success" href="{{ route('products.create') }}"> Create New Pelanggan</a>
+                <a class="btn btn-success" href="{{ route('pelanggan.create') }}"> Create New Pelanggan</a>
             </div>
         </div>
     </div>
@@ -29,7 +33,7 @@
         </tr>
         @foreach ($pelanggan as $pel)
         <tr>
-            <td>{{ ++$i }}</td>
+            <td>{{ $pel->id_pelanggan }}</td>
             <td>{{ $pel->nama_pelanggan }}</td>
             <td>{{ $pel->alamat_lengkap }}</td>
             <td>{{ $pel->no_telepon }}</td>
@@ -52,5 +56,8 @@
     </table>
   
     {!! $pelanggan->links() !!}
-      
+</div>
+</div>
+</div>
+</div>
 @endsection

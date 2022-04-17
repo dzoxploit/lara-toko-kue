@@ -25,10 +25,11 @@
     <table class="table table-bordered">
         <tr>
             <th>No</th>
-            <th>Nama Kue</th>
-            <th>Detail Kue</th>
-            <th>Harga Kue</th>
-            <th>Gambar Kue</th>
+            <th>Id Transaksi</th>
+            <th>Id Pelanggan</th>
+            <th>Tgl pesan</th>
+            <th>Tgl diambil</th>
+            <th>total_harga</th>
             <th>Status Kue</th>
             <th width="280px">Action</th>
         </tr>

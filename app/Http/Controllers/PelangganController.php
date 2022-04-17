@@ -2,6 +2,7 @@
 namespace App\Http\Controllers;
 use App\Models\Pelanggan;
 use Illuminate\Http\Request;
+use DB;
 class PelangganController  extends Controller
 {
 /**
@@ -17,7 +18,7 @@ class PelangganController  extends Controller
         public function index()
         {
             $pelanggan = Pelanggan::orderBy('id_pelanggan','desc')->paginate(5);
-            return view('pelanggan.index', $pelanggan);
+            return view('pelanggan.index', ['pelanggan' => $pelanggan]);
         }
         /**
         * Show the form for creating a new resource.
@@ -57,7 +58,7 @@ class PelangganController  extends Controller
         public function show($id)
         {
             $pelanggan = Pelanggan::where('id_pelanggan',$id)->first();
-            return view('pelanggan.show', $pelanggan);
+            return view('pelanggan.show',  ['pelanggan' => $pelanggan]);
         } 
         /**
         * Show the form for editing the specified resource.
@@ -68,7 +69,7 @@ class PelangganController  extends Controller
         public function edit($id)
         {
             $pelanggan = Pelanggan::where('id_pelanggan',$id)->first();
-            return view('pelanggan.edit', $pelanggan);
+            return view('pelanggan.edit',  ['pelanggan' => $pelanggan]);
         }
         /**
         * Update the specified resource in storage.
@@ -98,13 +99,11 @@ class PelangganController  extends Controller
         * @param  \App\Company  $company
         * @return \Illuminate\Http\Response
         */
-        public function destroy($id)
+        public function destroy(Pelanggan $pelanggan)
         {
-
-        $pelanggan = Pelanggan::where('id_pelanggan',$id)->first();
         $pelanggan->delete();
 
-        
+    
         DB::statement("SET @count = 0;");
         DB::statement("UPDATE pelanggan SET pelanggan.id_pelanggan = @count:= @count + 1;");
         DB::statement("ALTER TABLE pelanggan AUTO_INCREMENT = 1;");
