@@ -11,7 +11,7 @@
                 <h2>Toko Kue Dani Ardeanto</h2>
             </div>
             <div class="pull-right">
-                <a class="btn btn-success" href="{{ route('produk.create') }}"> Create New Produk</a>
+                <a class="btn btn-success" href="{{ route('transaksi.create') }}"> Create New Transaksi</a>
             </div>
         </div>
     </div>
@@ -26,28 +26,30 @@
         <tr>
             <th>No</th>
             <th>Id Transaksi</th>
-            <th>Id Pelanggan</th>
+            <th>Nama Pelanggan</th>
             <th>Tgl pesan</th>
             <th>Tgl diambil</th>
             <th>total_harga</th>
-            <th>Status Kue</th>
+            <th>total dibayar</th>
+            <th>status transaksi</th>
             <th width="280px">Action</th>
         </tr>
-        @foreach ($produk as $prod)
+        @foreach ($transaksi as $tr)
         <tr>
-            <td>{{ $prod->id_kue }}</td>
-            <td>{{ $prod->nama_kue }}</td>
-            <td>{{ $prod->detail_kue }}</td>
-            <td>{{ $prod->harga_kue }}</td>
-            <td><img src="{{ Storage::url($prod->gambar_kue) }}" height="75" width="75" alt="" /></td>
-            <td>{{ $prod->status_kue }}</td>
+            <td>{{ $tr->id_transaksi }}</td>
+            <td>{{ $tr->nama_pelanggan }}</td>
+            <td>{{ $tr->tgl_pesan }}</td>
+            <td>{{ $tr->tgl_diambil }}</td>
+            <td>{{ $tr->total_harga }}</td>
+            <td>{{ $tr->total_dibayar }}</td>
+            <td>{{ $tr->status_transaksi }}</td>
             <td>
-                <form action="{{ route('produk.delete_data',['id' => $prod->id_kue]) }}" method="POST">
+                <form action="{{ route('transaksi.delete',['id' => $tr->id_transaksi]) }}" method="POST">
                     @csrf
                     @method('DELETE')
-                    <a class="btn btn-info" href="{{ route('produk.show',$prod->id_kue) }}">Show</a>
+                    <a class="btn btn-info" href="{{ route('transaksi.show', $tr->id_transaksi) }}">Show</a>
     
-                    <a class="btn btn-primary" href="{{ route('produk.edit',$prod->id_kue) }}">Edit</a>
+                    <a class="btn btn-primary" href="{{ route('transaksi.edit',$tr->id_transaksi) }}">Edit</a>
       
                     <button type="submit" class="btn btn-danger">Delete</button>
                 </form>
@@ -56,7 +58,7 @@
         @endforeach
     </table>
   
-    {!! $produk->links() !!}
+    {!! $transaksi->links() !!}
 </div>
 </div>
 </div>

@@ -33,8 +33,8 @@
      <div class="row">
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
-                <strong>Nama Kue:</strong>
-                <input type="text" name="nama_kue" class="form-control" placeholder="nama_kue">
+                <strong>Nama Pelanggan:</strong>
+                
             </div>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-12">
